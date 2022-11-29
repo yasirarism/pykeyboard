@@ -32,6 +32,9 @@ class InlineKeyboard(InlineKeyboardMarkup):
         super().__init__(inline_keyboard=self.inline_keyboard)
         self.row_width = row_width
 
+    def add2(self, btn: InlineKeyboardButton):
+        self.inline_keyboard.append(btn)
+
     def add(self, *args):
         self.inline_keyboard = [
             args[i:i + self.row_width]
