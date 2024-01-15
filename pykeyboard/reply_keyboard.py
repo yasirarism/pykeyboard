@@ -5,7 +5,7 @@ from pyrogram.types import (
 class ReplyKeyboard(ReplyKeyboardMarkup):
     def __init__(self, resize_keyboard=None, one_time_keyboard=None,
                  selective=None, placeholder=None, row_width=3):
-        self.keyboard = list()
+        self.keyboard = []
         super().__init__(
             keyboard=self.keyboard,
             resize_keyboard=resize_keyboard,
@@ -22,7 +22,7 @@ class ReplyKeyboard(ReplyKeyboardMarkup):
         ]
 
     def row(self, *args):
-        self.keyboard.append([button for button in args])
+        self.keyboard.append(list(args))
 
 
 class ReplyButton(KeyboardButton):

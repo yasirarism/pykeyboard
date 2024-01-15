@@ -28,7 +28,7 @@ class InlineKeyboard(InlineKeyboardMarkup):
     }
 
     def __init__(self, row_width=3):
-        self.inline_keyboard = list()
+        self.inline_keyboard = []
         super().__init__(inline_keyboard=self.inline_keyboard)
         self.row_width = row_width
 
@@ -42,7 +42,7 @@ class InlineKeyboard(InlineKeyboardMarkup):
         ]
 
     def row(self, *args):
-        self.inline_keyboard.append([button for button in args])
+        self.inline_keyboard.append(list(args))
 
     def _add_button(self, text, callback_data):
         return InlineKeyboardButton(
@@ -112,13 +112,12 @@ class InlineKeyboard(InlineKeyboardMarkup):
     def _build_pagination(self):
         if self.count_pages <= 5:
             return self._full_pagination
+        if self.current_page <= 3:
+            return self._left_pagination
+        elif self.current_page > self.count_pages - 3:
+            return self._right_pagination
         else:
-            if self.current_page <= 3:
-                return self._left_pagination
-            elif self.current_page > self.count_pages - 3:
-                return self._right_pagination
-            else:
-                return self._middle_pagination
+            return self._middle_pagination
 
     def paginate(self, count_pages: int, current_page: int,
                  callback_pattern: str):
